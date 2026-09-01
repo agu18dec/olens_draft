@@ -1,0 +1,40 @@
+# Round-4-long distillation student (omp4long.s0/final): bullet-concept AO,
+# JOINT per-bullet FVE reward. 2 GPUs per run (actor + frozen AR), 512 completions/step.
+# Injection EXACTLY as trained: unit transform, alpha=16000, no per-layer scales,
+# layers 20-60, concepts_raw prompt (marker ㈜/158983 unchanged).
+
+base_ckpt: Qwen/Qwen3.6-27B
+ao_lora: artifacts/sc/hf/ckpts/ao/chat/k4.L20-60.cont.u64.s0/step28000/lora_hf
+ar_ckpt: artifacts/sc/hf/ckpts/ar/chat/mlayer.lc.s0/ex16014240
+whitener_dir: artifacts/sc/whiteners/chat
+whitener_prefix: whitening_iolens_chat
+ridge: 0.1
+rl_parquet: artifacts/sc/rl_distill/rl_train_0.parquet
+eval_parquet: artifacts/sc/rl_distill/rl_gate_0.parquet
+diag_parquet: artifacts/sc/rl_distill/rl_diag.parquet
+sidecar: artifacts/sc/rl_distill/merged/nla_meta.yaml
+
+# reward: per-bullet joint FVE (whitened, unit concept directions), configurable
+reward_agg: joint
+reward_whiten: true
+reward_unit_norm: true
+reward_k_max: 4
+
+num_steps: 50
+batch_prompts: 8
+group_size: 64          # 8 x 64 = 512 completions/step
+gen_prompts_per_call: 4
+max_new_tokens: 128     # responses avg 81, max 142 -> 128 is ample and faster (was 192)
+temperature: 1.0
+lr: 5e-5
+kl_beta: 0.05
+length_penalty: 0.0
+logp_micro_batch: 4
+rm_micro_batch: 32
+eval_every: 5
+eval_n_prompts: 128
+save_every: 25
+seed: 0
+
+wandb_project: ola
+wandb_group: rl-sc-ablate

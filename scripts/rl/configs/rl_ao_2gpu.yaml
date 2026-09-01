@@ -1,0 +1,33 @@
+# Validation-run config: 2 GPUs (actor cuda:0, frozen AR cuda:1), 512 completions/step.
+# Shape per the audit's P3 envelope (8-16 prompts x G=64-128); 4x the miles stack's
+# 128 completions/step — the adopted "raise completions/step" lesson.
+# Keys are argparse dests of scripts/rl/train_rl_ao.py (see run_config.py).
+
+base_ckpt: Qwen/Qwen3.6-27B
+ao_lora: artifacts/sc/hf/ckpts/ao/chat/k4.L20plus.s2/step3002/lora_hf
+ar_ckpt: artifacts/sc/hf/ckpts/ar/chat/mlayer.lc.s0/ex16014240
+whitener_dir: artifacts/sc/whiteners/chat
+whitener_prefix: whitening_iolens_chat
+ridge: 0.1
+rl_parquet: artifacts/sc/rl/rl_train_0.parquet
+eval_parquet: artifacts/sc/rl/rl_gate_0.parquet
+sidecar: artifacts/sc/rl/merged/nla_meta.yaml
+
+num_steps: 50
+batch_prompts: 8
+group_size: 64          # 8 x 64 = 512 completions/step
+max_new_tokens: 128    # 96 truncated ~20% of T=1 rollouts in the 10-step test (canary)
+temperature: 1.0
+lr: 1.41e-5             # signed-off run100 value
+kl_beta: 0.05           # exact analytic KL(policy||ref); run100's calibration
+length_penalty: 0.0
+logp_micro_batch: 4    # 8 OOM'd at mnt=128 (graph + ref-forward peak on 141 GB)
+rm_micro_batch: 32
+eval_every: 5
+eval_n_prompts: 128
+eval_gen_batch: 32
+save_every: 25
+seed: 0
+
+wandb_project: ola
+wandb_group: rl-sc
