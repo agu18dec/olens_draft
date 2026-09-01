@@ -1,0 +1,110 @@
+[project]
+name = "oracle-lens"
+version = "0.1.0"
+description = "Oracle lens: activation reconstructor (AR) + activation oracle (AO) — data generation, SFT distillation, and GRPO RL on Qwen3.6-27B"
+requires-python = ">=3.12"
+dependencies = [
+    "torch>=2.11",
+    "numpy>=2.3",
+    "einops>=0.8",
+    "jaxtyping>=0.3",
+    "transformers>=5.11.0",
+    "safetensors>=0.8.0",
+    "huggingface-hub>=1.18.0",
+    "datasets>=5.0.0",
+    "peft>=0.19.1",
+    "wandb>=0.28.0",
+    "pyarrow>=18.0",
+    "pyyaml>=6.0",
+    "torchdata>=0.11.0",  # runtime dep of vendored mytorch-lightning (undeclared in its pyproject)
+    "mytorch-lightning",
+]
+
+[tool.uv.sources]
+# Vendored into vendor/mytorch-lightning (upstream is PRIVATE: jordan-benjamin/mytorch-lightning,
+# pinned at commit 3cd7422). Installed from the local path so `uv sync` needs no private access —
+# see vendor/mytorch-lightning/VENDORED.md, including the note on sharing this repo publicly.
+mytorch-lightning = { path = "vendor/mytorch-lightning" }
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15",
+    "mypy>=2.1",
+    "pytest>=9.0",
+    "matplotlib>=3.11.0",  # scripts/rl/viz plot builders only
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+# src/jlens is the vendored official reference implementation (anthropics/jacobian-lens,
+# Apache-2.0, pinned by commit — see src/jlens/VENDORED.md). Verbatim copy; do not edit.
+packages = ["src/oracle_lens", "src/jlens"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+# Vendored upstream code keeps its own style; never lint or edit it.
+extend-exclude = ["src/jlens", "vendor"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "N", "UP", "B", "SIM", "C4", "RUF"]
+# F722/F821/UP037 false-positive on jaxtyping string annotations — keep ignored.
+ignore = ["F722", "F821", "UP037"]
+
+[tool.ruff.lint.isort]
+known-first-party = ["oracle_lens", "jlens"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+no_implicit_reexport = true
+exclude = [
+    "vendor/",  # vendored mytorch-lightning clone (its own package; not type-checked here)
+]
+
+[[tool.mypy.overrides]]
+# Vendored verbatim (not written to this repo's strict standard); type-check callers, not the vendor.
+module = ["jlens.*", "mytorch_lightning.*"]
+ignore_errors = true
+follow_imports = "skip"
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = [
+    "einops.*",
+    "datasets.*",
+    "transformers.*",
+    "safetensors.*",
+    "wandb.*",
+    "peft.*",
+    "matplotlib.*",
+    "pyarrow.*",
+    "accelerate.*",
+]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+# Deliberately undeclared deps: sglang/vllm live in separate venvs (rollout generation and
+# distill teacher sampling — see README), bitsandbytes is an optional 8-bit-optimizer upgrade
+# in the RL trainer. Treat as untyped always so mypy results don't depend on venv state.
+module = ["sglang.*", "vllm.*", "bitsandbytes.*", "yaml.*"]
+follow_imports = "skip"
+ignore_missing_imports = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = ["gpu: requires CUDA + a model download (deselect with '-m \"not gpu\"')"]
+addopts = "-m 'not gpu'"
+
+[tool.ruff.lint.per-file-ignores]
+# Pre-existing style debt inherited from the monorepo (rl_sc was never under its ruff gate).
+# These are one-off analysis probes and plot builders, byte-identical to the runs of record —
+# style-fixing unrunnable-here analysis code risks changing behavior for zero benefit.
+"scripts/rl/viz/*" = ["E501", "E702", "E731", "N802", "N803", "N806", "N816", "B905", "B007", "SIM103", "SIM115", "RUF001", "RUF002", "RUF005", "RUF007", "E741"]
+"scripts/rl/checks/*" = ["E501", "E702", "E731", "N802", "N803", "N806", "B905", "B007", "SIM115", "RUF001", "RUF007", "SIM103", "RUF005", "E741"]

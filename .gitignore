@@ -1,0 +1,20 @@
+# artifacts and run outputs
+artifacts/
+outputs/
+logs/
+wandb/
+*.safetensors
+*.parquet
+
+# env / secrets
+.env
+.venv/
+*.env
+
+# python
+__pycache__/
+*.pyc
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+*.egg-info/
