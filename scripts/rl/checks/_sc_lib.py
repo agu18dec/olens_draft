@@ -16,7 +16,7 @@ import torch
 _HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(_HERE))                      # this dir
 sys.path.insert(0, str(_HERE.parent))               # rl_sc/
-sys.path.insert(0, str(_HERE.parents[2] / "src"))   # global_workspace
+sys.path.insert(0, str(_HERE.parents[2] / "src"))   # oracle_lens package
 
 from _lib import (  # noqa: E402, F401  (re-exported)
     hf_greedy,
