@@ -4,7 +4,7 @@ score_texts (the live trainer path) ≡ inline hook-capture recompute ≡ pure-n
 whiten/cosine, atol 2e-3, against the REAL frozen AR (ex16014240) + chat
 whiteners; plus the floor contract (empty text -> -4.0, valid=False).
 
-Run: uv run --no-sync python scripts/rl/checks/gate_reward_equiv.py \
+Run: uv run python scripts/rl/checks/gate_reward_equiv.py \
        --parquet $SC/rl/rl_gate_0.parquet \
        --ar-ckpt $SC/hf/ckpts/ar/chat/mlayer.lc.s0/ex16014240 \
        --whitener-dir $SC/whiteners/chat

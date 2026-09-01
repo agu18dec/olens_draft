@@ -10,7 +10,7 @@ the seeded picks are generated over the FULL pool and sliced by shard bounds on
 both sides, so a prefix slice preserves alignment exactly.
 
 Usage:
-    uv run --no-sync python scripts/rl/slice_arout.py \
+    uv run python scripts/rl/slice_arout.py \
         --src artifacts/sc/ao_arout/ar.chat.mlayer.lc.s0/ex16014240 \
         --dst artifacts/sc/ao_arout_small --split train --hi 65895
 """

@@ -12,7 +12,7 @@ AR=$SC/hf/ckpts/ar/chat/mlayer.lc.s0/ex16014240
 WHIT=$SC/whiteners/chat
 SIDE=$SC/rl/merged/nla_meta.yaml
 GATE_PQ=${GATE_PQ:-$SC/rl/rl_gate_0.parquet}
-PY="uv run --no-sync python"
+PY="uv run python"
 
 run() { echo; echo "=== $1 ==="; shift; time "$@" || { echo "GATE FAILED"; exit 1; }; }
 

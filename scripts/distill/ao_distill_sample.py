@@ -13,7 +13,7 @@ prompt-embeds contract) for the u64 tag-free AO. Differences from the olens samp
   for trivial following-text (r2_filter.is_degenerate) before anything is sampled.
 
     # 1) project venv: filter + draw + render + write vectors
-    uv run --no-sync python scripts/distill/ao_distill_sample.py --mode prompts \
+    uv run python scripts/distill/ao_distill_sample.py --mode prompts \
         --pairs-dir ml_pairs_aoval --out-dir distill_u64/pilot --n-rows 2046
     # 2) vllm venv (no repo imports):
     <your-vllm-venv>/bin/python scripts/distill/ao_distill_sample.py \
@@ -40,7 +40,7 @@ PROMPT_KIND = "continuation_raw"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

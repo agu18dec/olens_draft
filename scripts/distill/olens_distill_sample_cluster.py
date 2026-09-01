@@ -24,10 +24,10 @@ a seeded draw shared by every variant (same activations, same layers — matched
 Sharded by contiguous row slice; skip-if-exists; atomic writes. ``--topup <shortfall.json>``
 re-samples only the listed rows at 2x k' into ``topup<round>_`` files.
 
-    # after merge: 16x1-GPU fleet, e.g. variant k20n16, train split
+    # after merge: one worker per GPU (shard i of N), e.g. variant k20n16, train split
     VLLM=<your-vllm-venv>/bin/python
-    scripts/cluster/submit.sh -J olens-r2-samp-k20n16 -g 1 -t 04:00:00 -q high -a 0-15 -- \\
-        env PYTHONUNBUFFERED=1 $VLLM scripts/distill/olens_distill_sample_cluster.py \\
+    CUDA_VISIBLE_DEVICES=0 PYTHONUNBUFFERED=1 \\
+        $VLLM scripts/distill/olens_distill_sample_cluster.py \\
             --mode sample --engine vllm --variant k20n16 --split train \\
             --teacher-run olens.n1024.recon.main.a8000.lr3e-4.r32.s0 --n-shards 16
 """
@@ -74,7 +74,7 @@ VARIANTS: dict[str, dict[str, int]] = {
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

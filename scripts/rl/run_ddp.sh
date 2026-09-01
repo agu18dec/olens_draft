@@ -22,7 +22,7 @@ mkdir -p "$OUT"
 
 export OMP_NUM_THREADS=24 MKL_NUM_THREADS=24 OPENBLAS_NUM_THREADS=24
 
-uv run --no-sync torchrun --rdzv-backend=c10d \
+uv run torchrun --rdzv-backend=c10d \
     --rdzv-endpoint="localhost:${RDZV_PORT:-29500}" --nproc-per-node="$NPROC" \
     scripts/rl/train_rl_ao.py \
     --config "$CONFIG" \

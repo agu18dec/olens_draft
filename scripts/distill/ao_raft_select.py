@@ -6,7 +6,7 @@ COMPLETE readout, verbatim, so SFT reinforces trajectories the policy actually p
 whitened non-negative joint NNLS-FVE of the readout's parsed bullets vs the true activation
 (identical math to ao_student_fve.py; this IS the future RL reward).
 
-    CUDA_VISIBLE_DEVICES=g uv run --no-sync python scripts/distill/ao_raft_select.py \
+    CUDA_VISIBLE_DEVICES=g uv run python scripts/distill/ao_raft_select.py \
         --out-dir distill_u64/raft --n-shards 4 --shard g
     # then --aggregate prints the pass@k table and writes raft training rows
 """
@@ -26,7 +26,7 @@ MAX_BULLETS = 6
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

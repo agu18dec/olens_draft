@@ -20,7 +20,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

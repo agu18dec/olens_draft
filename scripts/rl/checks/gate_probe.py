@@ -8,7 +8,7 @@ Known-good (old stack, same data/AR): matched -1.4994, shuffled -2.0009,
 gap +0.502, win 0.917; mean matched FVE ≈ 0.102 (the SFT baseline) — reported
 here as the tie to the known-good numbers.
 
-Run: uv run --no-sync python scripts/rl/checks/gate_probe.py \
+Run: uv run python scripts/rl/checks/gate_probe.py \
        --parquet $SC/rl/rl_gate_0.parquet --sidecar $SC/rl/merged/nla_meta.yaml \
        --ao-lora $SC/hf/ckpts/ao/chat/k4.L20plus.s2/step3002/lora_hf \
        --ar-ckpt $SC/hf/ckpts/ar/chat/mlayer.lc.s0/ex16014240 \

@@ -11,7 +11,7 @@ Both: step-0 KL ≈ 0 (fresh start loads the same adapter twice).
 
 1 GPU (toy mode never loads the AR).
 
-Run: uv run --no-sync python scripts/rl/checks/gate_direction_noop.py \
+Run: uv run python scripts/rl/checks/gate_direction_noop.py \
        --parquet $SC/rl/rl_gate_0.parquet --sidecar $SC/rl/merged/nla_meta.yaml \
        --ao-lora $SC/hf/ckpts/ao/chat/k4.L20plus.s2/step3002/lora_hf
 """

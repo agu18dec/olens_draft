@@ -7,7 +7,7 @@ effective batch asserted against the protocol, milestone checkpoints + lightweig
 the AR scaling curve (x = exact all-reduced span tokens).
 
     CUDA_VISIBLE_DEVICES=0,1,2 MASTER_PORT=29510 PYTHONUNBUFFERED=1 \
-        uv run --no-sync python scripts/ar/iolens_ar_train.py \
+        uv run python scripts/ar/iolens_ar_train.py \
             --run-name ar.iolens.chat.mlayer.lc.s0 \
             --pairs-dir ml_pairs_iolens_chat --whitener-prefix whitening_iolens_chat \
             --n-gpu 3 --span-law crop_uniform --pad-width 32 --compile-blocks \
@@ -42,7 +42,7 @@ JSPACE_REVISION_DEFAULT = "a4114d7752d11eb546e6cf372213d7e75526d3a1"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

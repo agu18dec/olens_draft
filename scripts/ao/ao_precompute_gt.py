@@ -15,7 +15,7 @@ think-reemission-filtered conversation list in rollout-shard order — reconstru
 the exact ``ao_build_pool.py`` filter, then verified PER CROP by matching the pool's stored
 span ids against the conversation slice (a single mismatch aborts the shard).
 
-    CUDA_VISIBLE_DEVICES=0 uv run --no-sync python scripts/ao/ao_precompute_gt.py \
+    CUDA_VISIBLE_DEVICES=0 uv run python scripts/ao/ao_precompute_gt.py \
         --pool ao_pool/pool_iolens.safetensors --split train --n-shards 4 --shard 0 \
         --layer-min 20 --layers-per-crop 4
 """
@@ -35,7 +35,7 @@ MODEL_ID = "Qwen/Qwen3.6-27B"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

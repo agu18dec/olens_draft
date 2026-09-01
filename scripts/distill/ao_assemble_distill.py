@@ -16,7 +16,7 @@ CJK chars), max pairwise Jaccard < 0.45 (word keys + CJK bigrams), no U+FFFD, no
 repeated >= 3x within a pick, letter-ratio >= 0.30, no pick a string-prefix of another, and —
 for parseability of the '- ' format — no pick containing a line that starts with "- ".
 
-    uv run --no-sync python scripts/distill/ao_assemble_distill.py \
+    uv run python scripts/distill/ao_assemble_distill.py \
         --out-dir distill_u64/pilot --arm normmatched --tag _shrunk --variant omp4
 """
 
@@ -148,7 +148,7 @@ def ola_root() -> Path:
 
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT unset — source scripts/cluster/env.sh")
+        raise SystemExit("OLA_ROOT unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

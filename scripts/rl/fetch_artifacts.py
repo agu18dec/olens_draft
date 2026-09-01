@@ -21,7 +21,6 @@ Usage:
 Lays out artifacts/sc by default; override with --sc-root or $SC_ROOT.
 """
 
-from __future__ import annotations
 
 import argparse
 import json

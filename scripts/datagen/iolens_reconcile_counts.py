@@ -16,8 +16,8 @@ or the live ``resume.pt``); ``unique`` comes from the capture reports, keyed on 
 ``(rollout_shard, conv-hash interval)`` that actually determines a pair's content — NOT on the
 shard number, which counts a legitimately disjoint later wave as a duplicate.
 
-    uv run --no-sync python scripts/datagen/iolens_reconcile_counts.py
-    uv run --no-sync python scripts/datagen/iolens_reconcile_counts.py --cells chat --strict
+    uv run python scripts/datagen/iolens_reconcile_counts.py
+    uv run python scripts/datagen/iolens_reconcile_counts.py --cells chat --strict
 """
 
 import argparse
@@ -38,7 +38,7 @@ DONE_RE = re.compile(r"done_(\d+)(?:s(\d+))?\.json$")
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

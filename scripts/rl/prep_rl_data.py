@@ -3,7 +3,7 @@
 Runs in the PROJECT venv (renders prompts under its transformers; the miles env never touches
 a chat template). Stages are idempotent (skip-if-exists) and independently invokable:
 
-    uv run --no-sync python scripts/rl/prep_rl_data.py \\
+    uv run python scripts/rl/prep_rl_data.py \\
         --ao-lora-dir $OLA_ROOT/ao_checkpoints/<run>/stepN/lora \\
         --ao-meta $OLA_ROOT/ao_checkpoints/<run>/stepN/meta.json \\
         --layers 20,24,28,32,36,40,44,48,52,56,60,63 --global-scale 64.559 \\
@@ -31,7 +31,7 @@ import sys
 from pathlib import Path
 from typing import Any
 
-sys.path.insert(0, str(Path(__file__).resolve().parents[3] / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 
 MODEL_ID = "Qwen/Qwen3.6-27B"
 
@@ -39,7 +39,7 @@ MODEL_ID = "Qwen/Qwen3.6-27B"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

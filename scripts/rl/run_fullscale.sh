@@ -26,7 +26,7 @@ for k in 0 1 2 3; do
   RUN="${PREFIX}-b${BETA}-lr${LR}-s${k}"
   OUT=artifacts/sc/rl_runs/$RUN
   mkdir -p "$OUT"
-  CUDA_VISIBLE_DEVICES=$((2 * k)),$((2 * k + 1)) nohup uv run --no-sync python \
+  CUDA_VISIBLE_DEVICES=$((2 * k)),$((2 * k + 1)) nohup uv run python \
       scripts/rl/train_rl_ao.py \
       --config "$CONFIG" \
       --save-dir "$OUT" \

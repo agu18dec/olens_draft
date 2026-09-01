@@ -17,7 +17,7 @@
 - G5 degeneracy: every shard report must be ``g5_pass`` (rate ≤ 3%).
 - G6 seed freshness: zero duplicate ``seed_hash`` within + across the given shards.
 
-    CUDA_VISIBLE_DEVICES=0 uv run --no-sync python scripts/datagen/iolens_rollout_validate.py \
+    CUDA_VISIBLE_DEVICES=0 uv run python scripts/datagen/iolens_rollout_validate.py \
         --mode chat --shards 0 --g3-convs 100
 """
 
@@ -36,7 +36,7 @@ MODEL_ID = "Qwen/Qwen3.6-27B"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

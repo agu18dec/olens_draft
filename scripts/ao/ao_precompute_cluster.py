@@ -2,8 +2,8 @@
 
 One Slurm array task = one contiguous slice of the pool's canonical crop order, one GPU:
 
-    scripts/cluster/submit.sh -J ao-pre-<rung> -g 1 -t 06:00:00 -a 0-7 -- \
-        uv run --no-sync python scripts/ao/ao_precompute_cluster.py \
+    # long job — run in tmux, tee to logs/:
+        uv run python scripts/ao/ao_precompute_cluster.py \
             --ar-run ar.asst.on.mlayer.lc.alldata.crop32.b512.s0 --n-shards 8 --max-crops 700000
 
 Shards are idempotent (atomic ``.tmp -> replace``; an existing complete shard is skipped) and
@@ -39,7 +39,7 @@ def _heads_sha(ckpt_dir: Path) -> str:
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

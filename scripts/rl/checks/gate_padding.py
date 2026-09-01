@@ -18,7 +18,7 @@ this is trainer-vs-trainer so the bar is 20x+ tighter). A genuine padding leak
 NB: no IS ratio exists in this trainer, so batch-numeric logp offsets cannot
 bias the gradient the way they would on the engine axis.
 
-Run: uv run --no-sync python scripts/rl/checks/gate_padding.py \
+Run: uv run python scripts/rl/checks/gate_padding.py \
        --parquet $SC/rl/rl_gate_0.parquet --sidecar $SC/rl/merged/nla_meta.yaml \
        --ao-lora $SC/hf/ckpts/ao/chat/k4.L20plus.s2/step3002/lora_hf
 """

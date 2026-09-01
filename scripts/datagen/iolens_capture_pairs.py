@@ -16,7 +16,7 @@ tmp->rename; the accumulate-then-cat dumper OOM is a paid-for lesson), and a sto
 (G11) extrapolates the pair volume from the first conversations and refuses to start under 2x
 the projection. A per-shard ``done`` marker with exact counts makes reruns idempotent.
 
-    CUDA_VISIBLE_DEVICES=0 uv run --no-sync python scripts/datagen/iolens_capture_pairs.py \
+    CUDA_VISIBLE_DEVICES=0 uv run python scripts/datagen/iolens_capture_pairs.py \
         --mode chat --rollout-shard 0 --out-dir ml_pairs_iolens_chat
 """
 
@@ -63,7 +63,7 @@ def _git_commit() -> str:
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

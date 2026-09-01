@@ -4,8 +4,8 @@ The trainer is ``gt_train`` verbatim; the injected vector is the crop's precompu
 reconstruction, ``raw_scaled`` with the ONE frozen global constant. Fast kernels are MANDATORY:
 this entry hard-fails if the qwen3_5 fla binding (or flash-attn) is missing — no slow fallback.
 
-    scripts/cluster/submit.sh -J ao-alldata -g 8 -t 1-12:00:00 -q normal -- \
-        uv run --no-sync python scripts/ao/ao_train_cluster.py \
+    # long job — run in tmux, tee to logs/:
+        uv run python scripts/ao/ao_train_cluster.py \
             --run-name ao.asst.alldata-b512.s0 \
             --ar-run ar.asst.on.mlayer.lc.alldata.crop32.b512.s0 --resume
 
@@ -31,7 +31,7 @@ WANDB_PROJECT = "ola"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

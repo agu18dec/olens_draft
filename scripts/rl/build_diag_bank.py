@@ -14,7 +14,7 @@ are out-of-distribution vs the pool crops; the value is watching WHAT the AO rea
 (does it verbalize the latent danger/GFP/suppressed concept?) as RL runs.
 
 Usage:
-    CUDA_VISIBLE_DEVICES=0 uv run --no-sync python scripts/rl/build_diag_bank.py \
+    CUDA_VISIBLE_DEVICES=0 uv run python scripts/rl/build_diag_bank.py \
         --ao-meta $SC/hf/ckpts/ao/chat/k4.L20-60.cont.u64.s0/step28000/meta.json \
         --sidecar $SC/rl_u64/merged/nla_meta.yaml \
         --out $SC/rl_u64/rl_diag.parquet --layers 24,40,56

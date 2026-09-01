@@ -10,8 +10,8 @@ Read the result against the rung's published val_fve (alldata asst ~= 9.78% mean
 crops are a different draw (deterministic prefixes at 6 lengths, incl. N=64 which the crop32 AR
 never trained on), so expect the SAME ballpark on the N<=32 subset, not equality.
 
-    scripts/cluster/submit.sh -J ao-gate -g 0 -c 8 -m 100G -t 02:00:00 -- \
-        uv run --no-sync python scripts/ao/ao_gate_arout.py \
+    # long job — run in tmux, tee to logs/:
+        uv run python scripts/ao/ao_gate_arout.py \
             --ar-run ar.asst.on.mlayer.lc.alldata.crop32.b512.s0
 """
 
@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

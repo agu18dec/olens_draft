@@ -9,7 +9,7 @@ Asserts, on the real actor through the trainer's embedding-replacement hook:
     spliced_embeds (the reference arm the old stack gated sglang against) on
     --n gate rows. Both arms are in-process bf16 -> exact match expected.
 
-Run: uv run --no-sync python scripts/rl/checks/gate_injection.py \
+Run: uv run python scripts/rl/checks/gate_injection.py \
        --parquet $SC/rl/rl_gate_0.parquet --sidecar $SC/rl/merged/nla_meta.yaml \
        --ao-lora $SC/hf/ckpts/ao/chat/k4.L20plus.s2/step3002/lora_hf
 """

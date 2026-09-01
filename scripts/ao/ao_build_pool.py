@@ -10,8 +10,8 @@ Steps (design: docs/project/experiments/ola/ao_ladder.md):
 4. Save ``$OLA_ROOT/ao_pool/pool_v1.safetensors`` (+ ``eval_pool_v1`` from the pairs' first-4096
    row carve) and print the full accounting.
 
-    scripts/cluster/submit.sh -J ao-pool -g 0 -c 16 -m 200G -t 08:00:00 -- \
-        uv run --no-sync python scripts/ao/ao_build_pool.py
+    # long job — run in tmux, tee to logs/:
+        uv run python scripts/ao/ao_build_pool.py
 """
 
 import argparse
@@ -28,7 +28,7 @@ ROLLOUTS_REPO = "agu18dec/qwen3.6-27b-onpolicy-rollouts"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

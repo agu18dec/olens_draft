@@ -43,7 +43,7 @@ Topology: actor (bf16 27B + LoRA) on --actor-device, frozen LC-AR reward on
 --reward-device. No quantization, no device_map, no torch.compile, no fla.
 
 Run:
-    uv run --no-sync python scripts/rl/train_rl_ao.py \
+    uv run python scripts/rl/train_rl_ao.py \
         --config scripts/rl/configs/rl_ao_2gpu.yaml
 """
 

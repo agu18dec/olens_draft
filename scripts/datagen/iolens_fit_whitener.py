@@ -6,7 +6,7 @@ pairs dir (gate G10 wants >=1M rows per layer — about 12 iolens sub-shards) an
 ``$OLA_ROOT/{out_prefix}_L{L}.safetensors``. Loads the shards eagerly (fits this box's RAM)
 and streams 8192-row chunks through the accumulator on GPU.
 
-    CUDA_VISIBLE_DEVICES=0 uv run --no-sync python scripts/datagen/iolens_fit_whitener.py \
+    CUDA_VISIBLE_DEVICES=0 uv run python scripts/datagen/iolens_fit_whitener.py \
         --pairs-dir ml_pairs_iolens_chat --out-prefix whitening_iolens_chat
 """
 
@@ -25,7 +25,7 @@ MODEL_ID = "Qwen/Qwen3.6-27B"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

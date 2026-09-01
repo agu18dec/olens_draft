@@ -11,7 +11,7 @@ RUN=${AO_RUN_NAME:-iolens-rl-sc-val}
 OUT=artifacts/sc/rl_runs/$RUN
 mkdir -p "$OUT"
 
-CUDA_VISIBLE_DEVICES=${GPUS:-0,1} uv run --no-sync python scripts/rl/train_rl_ao.py \
+CUDA_VISIBLE_DEVICES=${GPUS:-0,1} uv run python scripts/rl/train_rl_ao.py \
     --config scripts/rl/configs/rl_ao_2gpu.yaml \
     --save-dir "$OUT" \
     --wandb-name "$RUN" \

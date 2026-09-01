@@ -18,7 +18,7 @@ un-normalized; FVE = nnls_refit (nonneg). Ceiling = 1-atom NNLS of AR(true span)
 rolled-target NNLS at the same k.
 
     # shard the AR embedding over GPUs:
-    CUDA_VISIBLE_DEVICES=g uv run --no-sync python scripts/distill/ao_gt_omp_readout.py \
+    CUDA_VISIBLE_DEVICES=g uv run python scripts/distill/ao_gt_omp_readout.py \
         --out-dir distill_u64/pilot --arm normmatched --n-shards 4 --shard g
     # then: --aggregate (CPU) prints the tables from the per-shard JSONs
 """
@@ -42,7 +42,7 @@ BANDS = {"L20-32": range(20, 33), "L36-48": range(36, 49), "L52-60": range(52, 6
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

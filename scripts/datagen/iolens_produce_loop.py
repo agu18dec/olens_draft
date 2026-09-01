@@ -11,7 +11,7 @@ The slice cursor is persisted, so every pass takes conversations no pass has tak
 walks (rollout shard x wave) pairs, where wave ``w`` uses ``--train-frac-skip w*frac``. Restarts
 resume from the cursor; nothing is ever captured twice.
 
-    CUDA_VISIBLE_DEVICES=5 uv run --no-sync python scripts/datagen/iolens_produce_loop.py \
+    CUDA_VISIBLE_DEVICES=5 uv run python scripts/datagen/iolens_produce_loop.py \
         --cells chat:6:0.14,pt:9:0.10 --low-gb 120 --high-gb 260 --world 3
 """
 
@@ -30,7 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 

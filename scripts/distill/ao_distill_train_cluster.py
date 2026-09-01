@@ -11,7 +11,7 @@ norm-matched GT residuals, exactly how the teacher samples were generated (probe
 norm-matched 203/1800 vs frozen-scale 138/1800 on GT injection) and how the RL step will read.
 The stored shard ``vec`` is the RAW residual; the trainer normalizes at batch time.
 
-    uv run --no-sync python scripts/distill/ao_distill_train_cluster.py \
+    uv run python scripts/distill/ao_distill_train_cluster.py \
         --out-dir distill_u64/pilot --variant omp4 --run-name ao.iolens.distill.omp4.s0 \
         --init-from ao.iolens.chat.k4.L20-60.cont.u64.s0/step28000 --dry-run 3
 """
@@ -34,7 +34,7 @@ DEFAULT_INIT = "ao.iolens.chat.k4.L20-60.cont.u64.s0/step28000"
 def ola_root() -> Path:
     root = os.environ.get("OLA_ROOT")
     if not root:
-        raise SystemExit("OLA_ROOT is unset — `source scripts/cluster/env.sh` first")
+        raise SystemExit("OLA_ROOT is unset — export it first (see docs/pipeline.md)")
     return Path(root)
 
 
