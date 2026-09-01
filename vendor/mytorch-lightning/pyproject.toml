@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=42", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mytorch_lightning"
+version = "0.0.1"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pydra-config>=0.0.13",
+    "tqdm",
+    "torch",
+    "wandb",
+    "loguru",
+    "tabulate",
+]
+
+[project.optional-dependencies]
+dev = [
+    "transformers",
+    "datasets",
+    "accelerate",
+]
+
+[tool.setuptools]
+packages = {find = {}}
