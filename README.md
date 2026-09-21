@@ -74,3 +74,10 @@ was already paid for once.
 - Long jobs: run in tmux with `PYTHONUNBUFFERED=1`, tee output to a timestamped file under `logs/`.
 - `HF_TOKEN` / `WANDB_API_KEY` via environment only — never on argv, never committed.
 - Checks: `uv run ruff check . && uv run mypy src && uv run pytest`.
+
+## License
+
+MIT (`LICENSE`), except the vendored trees, which keep their own terms:
+`src/jlens/` is Apache-2.0 (anthropics/jacobian-lens) and
+`vendor/mytorch-lightning/` is a clone of a private upstream repo that this licence
+does not cover.
