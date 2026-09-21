@@ -19,16 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----
-
-Third-party code in this repository is NOT covered by the licence above and
-keeps its own terms:
-
-- `src/jlens/` — vendored from anthropics/jacobian-lens, Apache License 2.0.
-  Its licence is in `src/jlens/LICENSE` and its provenance in
-  `src/jlens/VENDORED.md`.
-- `vendor/mytorch-lightning/` — vendored from jordan-benjamin/mytorch-lightning,
-  a private repository, carried here so this repo builds without access to it.
-  No licence is granted by this file; all rights are reserved by its owner. See
-  `vendor/mytorch-lightning/VENDORED.md`.

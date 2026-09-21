@@ -77,7 +77,6 @@ was already paid for once.
 
 ## License
 
-MIT (`LICENSE`), except the vendored trees, which keep their own terms:
-`src/jlens/` is Apache-2.0 (anthropics/jacobian-lens) and
-`vendor/mytorch-lightning/` is a clone of a private upstream repo that this licence
-does not cover.
+MIT (`LICENSE`), except the vendored trees listed in `NOTICE.md`: `src/jlens/` is
+Apache-2.0 (anthropics/jacobian-lens), and `vendor/mytorch-lightning/` is a clone of a
+private upstream repo that this licence does not cover.
